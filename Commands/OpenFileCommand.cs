@@ -1,8 +1,8 @@
-using System;
-using System.Windows.Forms;
-
 namespace Codefarts.WPFCommon.Commands
 {
+    using System;
+    using System.Windows.Forms;
+
     public class OpenFileCommand : DelegateCommand
     {
         public Action<string> FileSelected { get; set; }

@@ -34,6 +34,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -53,8 +54,11 @@
     <Compile Include="Commands\MoveItemDownCommand.cs" />
     <Compile Include="Commands\MoveItemUpCommand.cs" />
     <Compile Include="Commands\MoveListItemCommand.cs" />
+    <Compile Include="Commands\NewCommand.cs" />
     <Compile Include="Commands\OpenFileCommand.cs" />
     <Compile Include="Commands\SelectFolderCommand.cs" />
+    <Compile Include="Commands\SetClipboardTextCommand.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="ExceptionArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -63,6 +67,14 @@
       <Project>{8E5B5FD5-CBB0-413E-94A7-DA0C4ED7E2F7}</Project>
       <Name>Codefarts.Utilities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\CombinedProjectsSolution\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
+    <Analyzer Include="..\CombinedProjectsSolution\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\CombinedProjectsSolution\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
