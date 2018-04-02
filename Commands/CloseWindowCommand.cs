@@ -6,7 +6,6 @@ namespace Codefarts.WPFCommon.Commands
 
     public class CloseWindowCommand : ICommand
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.Object"/> class.
         /// </summary>
@@ -25,7 +24,7 @@ namespace Codefarts.WPFCommon.Commands
         /// <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
         public virtual bool CanExecute(object parameter)
         {
-            return parameter is Window;
+            return parameter != null && parameter is Window;
         }
 
         /// <summary>
@@ -35,7 +34,10 @@ namespace Codefarts.WPFCommon.Commands
         public virtual void Execute(object parameter)
         {
             var window = parameter as Window;
-            window.Close();  
+            if (window != null)
+            {
+                window.Close();
+            }
         }
 
         /// <summary>

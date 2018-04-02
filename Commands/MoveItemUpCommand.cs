@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace Codefarts.WPFCommon.Commands
+﻿namespace Codefarts.WPFCommon.Commands
 {
+    using System;
     using System.Collections;
 
     public class MoveItemUpCommand : MoveListItemCommand
@@ -27,7 +26,14 @@ namespace Codefarts.WPFCommon.Commands
 
         public override void DoMove(int index)
         {
-            this.Items.MoveUp(index);
+            if (this.Items.Count < 2 || index == 0)
+            {
+                return;
+            }
+
+            var tempItem = this.Items[index];
+            this.Items[index] = this.Items[index - 1];
+            this.Items[index - 1] = tempItem;
         }
     }
 }

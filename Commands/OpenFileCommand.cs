@@ -2,6 +2,7 @@ namespace Codefarts.WPFCommon.Commands
 {
     using System;
     using System.Windows.Forms;
+    using System.Windows.Media;
 
     public class OpenFileCommand : DelegateCommand
     {
@@ -41,13 +42,15 @@ namespace Codefarts.WPFCommon.Commands
         /// </summary>
         public OpenFileCommand()
         {
-            this.CanExecuteCallback = parameter => !this.ExpectsOwnerWindow || (this.ExpectsOwnerWindow && parameter is IWin32Window);
+            this.CanExecuteCallback = parameter => !this.ExpectsOwnerWindow || (this.ExpectsOwnerWindow && parameter is Visual);
             this.ExecuteCallback = parameter =>
             {
                 var dialog = new OpenFileDialog();
                 dialog.Filter = this.Filter;
                 dialog.FileName = this.SelectedFile;
-                var result = !this.ExpectsOwnerWindow ? dialog.ShowDialog() : dialog.ShowDialog(parameter as IWin32Window);
+                var window = parameter as Visual;
+                var result = !this.ExpectsOwnerWindow ? dialog.ShowDialog() : dialog.ShowDialog(HelpersFunctions.GetIWin32Window(window));
+                //  var result = !this.ExpectsOwnerWindow ? dialog.ShowDialog() : dialog.ShowDialog(parameter as IWin32Window);
                 if (result == DialogResult.OK)
                 {
                     this.SelectedFile = dialog.FileName;

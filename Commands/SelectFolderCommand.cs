@@ -2,6 +2,7 @@ namespace Codefarts.WPFCommon.Commands
 {
     using System;
     using System.Windows.Forms;
+    using System.Windows.Media;
 
     public class SelectFolderCommand : DelegateCommand
     {
@@ -37,9 +38,20 @@ namespace Codefarts.WPFCommon.Commands
             this.PathSelected = pathSelectedCallback;
         }
 
+        public SelectFolderCommand(bool expectsOwnerWindow, Action<string> pathSelectedCallback) : this(pathSelectedCallback)
+        {
+            this.ExpectsOwnerWindow = expectsOwnerWindow;
+        }
+
         public SelectFolderCommand(string path, Action<string> pathSelectedCallback) : this(pathSelectedCallback)
         {
             this.selectedPath = path;
+        }
+
+        public SelectFolderCommand(bool expectsOwnerWindow, string path, Action<string> pathSelectedCallback) : this(path, pathSelectedCallback)
+        {
+            this.ExpectsOwnerWindow = expectsOwnerWindow;
+
         }
 
         /// <summary>
@@ -47,12 +59,13 @@ namespace Codefarts.WPFCommon.Commands
         /// </summary>
         public SelectFolderCommand()
         {
-            this.CanExecuteCallback = parameter => !this.ExpectsOwnerWindow || (this.ExpectsOwnerWindow && parameter is IWin32Window);
+            this.CanExecuteCallback = parameter => !this.ExpectsOwnerWindow || (this.ExpectsOwnerWindow && parameter is Visual);
             this.ExecuteCallback = parameter =>
             {
                 var dialog = new FolderBrowserDialog();
                 dialog.SelectedPath = this.selectedPath;
-                var result = !this.ExpectsOwnerWindow ? dialog.ShowDialog() : dialog.ShowDialog(parameter as IWin32Window);
+                var window = parameter as Visual;
+                var result = !this.ExpectsOwnerWindow ? dialog.ShowDialog() : dialog.ShowDialog(HelpersFunctions.GetIWin32Window(window));
                 if (result == DialogResult.OK)
                 {
                     this.selectedPath = dialog.SelectedPath;
