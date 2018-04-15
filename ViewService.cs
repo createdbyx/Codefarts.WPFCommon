@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Reflection;
 
     public class ViewService : IViewService
     {
@@ -15,11 +16,11 @@
         {
             // search through all assemblies
             //  var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(x => !x.FullName.StartsWith("System") && !x.FullName.StartsWith("Microsoft"));//.ToArray();
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies().AsParallel().Where(this.FilterKnownLibraries);//.ToArray();
 
             foreach (var asm in assemblies)
             {
-                var views = asm.GetTypes().Where(x => x.Name.Equals(name + "View"));
+                var views = asm.GetTypes().AsParallel().Where(x => x.Name.Equals(name + "View"));
 
                 var firstView = views.FirstOrDefault();
                 try
@@ -36,6 +37,11 @@
             }
 
             return null;
+        }
+
+        private bool FilterKnownLibraries(Assembly x)
+        {
+            return !x.FullName.StartsWith("System") && !x.FullName.StartsWith("Microsoft");
         }
     }
 }

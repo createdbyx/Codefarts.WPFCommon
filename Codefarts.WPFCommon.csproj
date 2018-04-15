@@ -81,6 +81,7 @@
     <Compile Include="Commands\ShowWindowCommand.cs" />
     <Compile Include="Behaviours\WindowBehaviours.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\IntegerAdditionConverter.cs" />
     <Compile Include="ExceptionArgs.cs" />
     <Compile Include="HelpersFunctions.cs" />
     <Compile Include="Interfaces\IViewService.cs" />
