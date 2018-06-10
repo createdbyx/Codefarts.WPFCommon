@@ -8,16 +8,17 @@ namespace Codefarts.WPFCommon.Commands
     {
         protected MoveListItemCommand(Action completed)
         {
-            Completed = completed;
+            this.Completed = completed;
         }
 
         protected MoveListItemCommand(IList items, Action completed)
         {
-            Items = items;
-            Completed = completed;
+            this.Items = items;
+            this.Completed = completed;
         }
 
         public IList Items { get; set; }
+
         public Action Completed { get; set; }
 
         public MoveListItemCommand()
@@ -26,24 +27,27 @@ namespace Codefarts.WPFCommon.Commands
 
         public MoveListItemCommand(IList items)
         {
-            Items = items;
+            this.Items = items;
         }
 
-        public bool CanExecute(object parameter)
+        public virtual bool CanExecute(object parameter)
         {
-            return this.Items != null;
+            if (this.Items == null || parameter == null)
+            {
+                return false;
+            }
+
+            var index = this.Items.IndexOf(parameter);
+            return index != -1;
         }
 
         public void Execute(object parameter)
         {
             var index = this.Items.IndexOf(parameter);
-            if (index != -1)
+            this.DoMove(index);
+            if (this.Completed != null)
             {
-                this.DoMove(index);
-                if (this.Completed != null)
-                {
-                    this.Completed();
-                }
+                this.Completed();
             }
         }
 
