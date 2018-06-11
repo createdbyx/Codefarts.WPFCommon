@@ -80,6 +80,7 @@
     <Compile Include="Commands\ShowWindowCommand.cs" />
     <Compile Include="Behaviours\WindowBehaviours.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\GridLengthConverter.cs" />
     <Compile Include="Converters\IntegerAdditionConverter.cs" />
     <Compile Include="Converters\StringPathToTreeViewNodeConverter.cs" />
     <Compile Include="ExceptionArgs.cs" />
