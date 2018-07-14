@@ -80,9 +80,12 @@
     <Compile Include="Commands\ShowWindowCommand.cs" />
     <Compile Include="Behaviours\WindowBehaviours.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\DebuggingDataBindingConverter.cs" />
     <Compile Include="Converters\GridLengthConverter.cs" />
     <Compile Include="Converters\IntegerAdditionConverter.cs" />
+    <Compile Include="Converters\IntegerToVisibilityConverter.cs" />
     <Compile Include="Converters\StringPathToTreeViewNodeConverter.cs" />
+    <Compile Include="DebuggerTraceListener.cs" />
     <Compile Include="ExceptionArgs.cs" />
     <Compile Include="HelpersFunctions.cs" />
     <Compile Include="Models\CheckedListItem.cs" />

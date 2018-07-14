@@ -15,6 +15,7 @@ namespace AttachedCommandBehavior
     public class BehaviorBinding : Freezable
     {
         CommandBehaviorBinding behavior;
+
         /// <summary>
         /// Stores the Command Behavior Binding
         /// </summary>
@@ -22,23 +23,31 @@ namespace AttachedCommandBehavior
         {
             get
             {
-                if (behavior == null)
-                    behavior = new CommandBehaviorBinding();
-                return behavior;
+                if (this.behavior == null)
+                {
+                    this.behavior = new CommandBehaviorBinding();
+                }
+
+                return this.behavior;
             }
         }
 
         DependencyObject owner;
+
         /// <summary>
         /// Gets or sets the Owner of the binding
         /// </summary>
         public DependencyObject Owner
         {
-            get { return owner; }
+            get
+            {
+                return this.owner;
+            }
+
             set
             {
-                owner = value;
-                ResetEventBinding();
+                this.owner = value;
+                this.ResetEventBinding();
             }
         }
 
@@ -57,8 +66,8 @@ namespace AttachedCommandBehavior
         /// </summary>
         public ICommand Command
         {
-            get { return (ICommand)GetValue(CommandProperty); }
-            set { SetValue(CommandProperty, value); }
+            get { return (ICommand)this.GetValue(CommandProperty); }
+            set { this.SetValue(CommandProperty, value); }
         }
 
         /// <summary>
@@ -74,7 +83,7 @@ namespace AttachedCommandBehavior
         /// </summary>
         protected virtual void OnCommandChanged(DependencyPropertyChangedEventArgs e)
         {
-            Behavior.Command = Command;
+            this.Behavior.Command = this.Command;
         }
 
         #endregion
@@ -94,8 +103,8 @@ namespace AttachedCommandBehavior
         /// </summary>
         public Action<object> Action
         {
-            get { return (Action<object>)GetValue(ActionProperty); }
-            set { SetValue(ActionProperty, value); }
+            get { return (Action<object>)this.GetValue(ActionProperty); }
+            set { this.SetValue(ActionProperty, value); }
         }
 
         /// <summary>
@@ -111,7 +120,7 @@ namespace AttachedCommandBehavior
         /// </summary>
         protected virtual void OnActionChanged(DependencyPropertyChangedEventArgs e)
         {
-            Behavior.Action = Action;
+            this.Behavior.Action = this.Action;
         }
 
         #endregion
@@ -131,8 +140,8 @@ namespace AttachedCommandBehavior
         /// </summary>
         public object CommandParameter
         {
-            get { return (object)GetValue(CommandParameterProperty); }
-            set { SetValue(CommandParameterProperty, value); }
+            get { return (object)this.GetValue(CommandParameterProperty); }
+            set { this.SetValue(CommandParameterProperty, value); }
         }
 
         /// <summary>
@@ -148,7 +157,7 @@ namespace AttachedCommandBehavior
         /// </summary>
         protected virtual void OnCommandParameterChanged(DependencyPropertyChangedEventArgs e)
         {
-            Behavior.CommandParameter = CommandParameter;
+            this.Behavior.CommandParameter = this.CommandParameter;
         }
 
         #endregion
@@ -168,8 +177,8 @@ namespace AttachedCommandBehavior
         /// </summary>
         public string Event
         {
-            get { return (string)GetValue(EventProperty); }
-            set { SetValue(EventProperty, value); }
+            get { return (string)this.GetValue(EventProperty); }
+            set { this.SetValue(EventProperty, value); }
         }
 
         /// <summary>
@@ -185,7 +194,7 @@ namespace AttachedCommandBehavior
         /// </summary>
         protected virtual void OnEventChanged(DependencyPropertyChangedEventArgs e)
         {
-            ResetEventBinding();
+            this.ResetEventBinding();
         }
 
         #endregion
@@ -197,14 +206,16 @@ namespace AttachedCommandBehavior
 
         private void ResetEventBinding()
         {
-            if (Owner != null) //only do this when the Owner is set
+            if (this.Owner != null) //only do this when the Owner is set
             {
                 //check if the Event is set. If yes we need to rebind the Command to the new event and unregister the old one
-                if (Behavior.Event != null && Behavior.Owner != null)
-                    Behavior.Dispose();
+                if (this.Behavior.Event != null && this.Behavior.Owner != null)
+                {
+                    this.Behavior.Dispose();
+                }
 
                 //bind the new event to the command
-                Behavior.BindEvent(Owner, Event);
+                this.Behavior.BindEvent(this.Owner, this.Event);
             }
         }
 

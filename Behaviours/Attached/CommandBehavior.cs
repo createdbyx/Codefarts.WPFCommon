@@ -162,6 +162,14 @@ namespace AttachedCommandBehavior
                     new PropertyChangedCallback(OnEventChanged)));
 
         /// <summary>
+        /// Event Attached Dependency Property
+        /// </summary>
+        public static readonly DependencyProperty EventsProperty =
+            DependencyProperty.RegisterAttached("Events", typeof(string[]), typeof(CommandBehavior),
+                new FrameworkPropertyMetadata((string[])new string[0],
+                    new PropertyChangedCallback(OnEventChanged)));
+
+        /// <summary>
         /// Gets the Event property.  This dependency property 
         /// indicates ....
         /// </summary>
