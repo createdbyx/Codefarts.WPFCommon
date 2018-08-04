@@ -13,6 +13,7 @@ namespace Codefarts.WPFCommon.Commands
         private Action<object> executeCallback;
 
         private bool isNotifying;
+        public event EventHandler Initialize;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DelegateCommand"/> class.
@@ -165,6 +166,7 @@ namespace Codefarts.WPFCommon.Commands
         /// <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
         public virtual bool CanExecute(object parameter)
         {
+            this.OnInitialize();
             var callback = this.canExecuteCallback;
             if (callback == null)
             {
@@ -204,5 +206,14 @@ namespace Codefarts.WPFCommon.Commands
         }
 
         #endregion
+
+        protected virtual void OnInitialize()
+        {
+            var handler = this.Initialize;
+            if (handler != null)
+            {
+                handler.Invoke(this, EventArgs.Empty);
+            }
+        }
     }
 }
