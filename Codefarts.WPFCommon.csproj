@@ -89,6 +89,8 @@
     <Compile Include="Converters\IntegerToVisibilityConverter.cs" />
     <Compile Include="Converters\StringPathToTreeViewNodeConverter.cs" />
     <Compile Include="DebuggerTraceListener.cs" />
+    <Compile Include="EventHandler Arguments\DownloadFileCommandMessageEventHandlerArgs.cs" />
+    <Compile Include="EventHandler Arguments\DownloadFileCommandProgressEventHandlerArgs.cs" />
     <Compile Include="ExceptionArgs.cs" />
     <Compile Include="HelpersFunctions.cs" />
     <Compile Include="Models\CheckedListItem.cs" />

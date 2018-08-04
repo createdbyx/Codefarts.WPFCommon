@@ -16,23 +16,18 @@ namespace Codefarts.WPFCommon.Commands
     /// </summary>
     public class DownloadFileCommand : DelegateCommand
     {
-        public delegate void MessagesCallback(string message, int code);
-
-        public delegate bool ProgressCallback(float progress, int bytesPerSecond, out bool cancel);
-
         public event EventHandler Error;
 
         private int bufferSize;
 
         private DateTime ifModifiedSince = DateTime.MinValue;
 
-        private MessagesCallback messageCallback;
-
         private Stream outputStream;
 
-        private ProgressCallback reportProgressCallback;
-
         private Uri url;
+
+        public event DownloadFileCommandMessageEventHandler Message;
+        public event DownloadFileCommandProgressEventHandler Progress;
 
         public DownloadFileCommand(Uri url, Stream outputStream)
         {
@@ -56,16 +51,6 @@ namespace Codefarts.WPFCommon.Commands
             this.bufferSize = bufferSize;
         }
 
-        public DownloadFileCommand(Uri url, Stream outputStream, int bufferSize, ProgressCallback reportProgressCallback, MessagesCallback messageCallback)
-        {
-            this.url = url ?? throw new ArgumentNullException(nameof(url));
-            this.outputStream = outputStream ?? throw new ArgumentNullException(nameof(outputStream));
-            this.bufferSize = bufferSize;
-            this.reportProgressCallback = reportProgressCallback ??
-                                          throw new ArgumentNullException(nameof(reportProgressCallback));
-            this.messageCallback = messageCallback ?? throw new ArgumentNullException(nameof(messageCallback));
-        }
-
         public Uri Url
         {
             get
@@ -75,8 +60,8 @@ namespace Codefarts.WPFCommon.Commands
 
             set
             {
-                var pValue = this.url;
-                if (pValue != value)
+                var currentValue = this.url;
+                if (currentValue != value)
                 {
                     this.url = value;
                     this.NotifyOfPropertyChange(() => this.Url);
@@ -93,8 +78,8 @@ namespace Codefarts.WPFCommon.Commands
 
             set
             {
-                var pValue = this.ifModifiedSince;
-                if (pValue != value)
+                var currentValue = this.ifModifiedSince;
+                if (currentValue != value)
                 {
                     this.ifModifiedSince = value;
                     this.NotifyOfPropertyChange(() => this.IfModifiedSince);
@@ -111,8 +96,8 @@ namespace Codefarts.WPFCommon.Commands
 
             set
             {
-                var pValue = this.outputStream;
-                if (pValue != value)
+                var currentValue = this.outputStream;
+                if (currentValue != value)
                 {
                     this.outputStream = value;
                     this.NotifyOfPropertyChange(() => this.OutputStream);
@@ -129,47 +114,11 @@ namespace Codefarts.WPFCommon.Commands
 
             set
             {
-                var pValue = this.bufferSize;
-                if (pValue != value)
+                var currentValue = this.bufferSize;
+                if (currentValue != value)
                 {
                     this.bufferSize = value;
                     this.NotifyOfPropertyChange(() => this.BufferSize);
-                }
-            }
-        }
-
-        public ProgressCallback ReportProgressCallback
-        {
-            get
-            {
-                return this.reportProgressCallback;
-            }
-
-            set
-            {
-                var callback = this.reportProgressCallback;
-                if (callback != value)
-                {
-                    this.reportProgressCallback = value;
-                    this.NotifyOfPropertyChange(() => this.ReportProgressCallback);
-                }
-            }
-        }
-
-        public MessagesCallback MessageCallback
-        {
-            get
-            {
-                return this.messageCallback;
-            }
-
-            set
-            {
-                var pValue = this.messageCallback;
-                if (pValue != value)
-                {
-                    this.messageCallback = value;
-                    this.NotifyOfPropertyChange(() => this.MessageCallback);
                 }
             }
         }
@@ -181,9 +130,8 @@ namespace Codefarts.WPFCommon.Commands
             {
                 var request = (HttpWebRequest)WebRequest.Create(this.url);
 
-                this.SendMessage(this.url.ToString());
+                this.OnMessage(this.url.ToString());
 
-                //var ifModifiedSince = request.IfModifiedSince;
                 if (this.ifModifiedSince != DateTime.MinValue)
                 {
                     request.IfModifiedSince = this.ifModifiedSince;
@@ -192,7 +140,7 @@ namespace Codefarts.WPFCommon.Commands
                 using (var httpResponse = (HttpWebResponse)request.GetResponse())
                 {
                     var contentLength = httpResponse.ContentLength;
-                    this.SendMessage(string.Format("{0} bytes to read.", contentLength));
+                    this.OnMessage(string.Format("{0} bytes to read.", contentLength));
 
                     using (var writer = new BinaryWriter(this.outputStream))
                     {
@@ -207,7 +155,7 @@ namespace Codefarts.WPFCommon.Commands
                                 readCount += chunk.Length;
 
                                 // Displays the operation identifier, and the transfer progress.
-                                this.SendMessage(
+                                this.OnMessage(
                                     string.Format(
                                         "downloaded {0} of {1} bytes. {2} % complete...",
                                         readCount,
@@ -225,10 +173,10 @@ namespace Codefarts.WPFCommon.Commands
                                 }
 
                                 bool cancel;
-                                this.SendProgress(Math.Min((float)readCount / contentLength * 100f, 100f), (int)bytesPerSecond, out cancel);
+                                this.OnProgress(Math.Min((float)readCount / contentLength * 100f, 100f), (int)bytesPerSecond, out cancel);
                                 if (cancel)
                                 {
-                                    this.SendMessage("Download canceled. " + this.url);
+                                    this.OnMessage("Download canceled. " + this.url);
                                     break;
                                 }
 
@@ -241,7 +189,7 @@ namespace Codefarts.WPFCommon.Commands
                         writer.Flush();
                     }
 
-                    this.SendMessage("Success.");
+                    this.OnMessage("Success.");
                 }
             }
             catch (WebException we)
@@ -250,22 +198,22 @@ namespace Codefarts.WPFCommon.Commands
                 var httpResponse = we.Response as HttpWebResponse;
                 if (httpResponse == null)
                 {
-                    this.SendMessage(string.Format("Error downloading! Status: {0}", we.Status), (int?)httpResponse.StatusCode);
+                    this.OnMessage(string.Format("Error downloading! Status: {0}", we.Status), (int?)httpResponse.StatusCode);
                 }
                 else
                 {
                     switch (httpResponse.StatusCode)
                     {
                         case HttpStatusCode.NotModified:
-                            this.SendMessage("StatusCode: 304 Not modified no need to download!", (int?)httpResponse.StatusCode);
+                            this.OnMessage("StatusCode: 304 Not modified no need to download!", (int?)httpResponse.StatusCode);
                             break;
 
                         case HttpStatusCode.NotFound:
-                            this.SendMessage(string.Format("StatusCode: 404 Status: {0} Not found!", we.Status), (int?)httpResponse.StatusCode);
+                            this.OnMessage(string.Format("StatusCode: 404 Status: {0} Not found!", we.Status), (int?)httpResponse.StatusCode);
                             break;
 
                         default:
-                            this.SendMessage(
+                            this.OnMessage(
                                 string.Format("StatusCode: {0}  Status: {1} ", httpResponse.StatusCode, we.Status) + we.Message,
                                 (int?)httpResponse.StatusCode);
                             break;
@@ -275,7 +223,7 @@ namespace Codefarts.WPFCommon.Commands
             catch (Exception ex)
             {
                 errorOccoured = true;
-                this.SendMessage("Unknown Error downloading", -1);
+                this.OnMessage("Unknown Error downloading", -1);
             }
 
             if (errorOccoured)
@@ -286,21 +234,23 @@ namespace Codefarts.WPFCommon.Commands
             // return new CommandResult<string>() { Successful = true };
         }
 
-        private void SendMessage(string message, int? code = 0)
+        protected void OnMessage(string message, int? code = 0)
         {
-            var callback = this.messageCallback;
-            if (callback != null)
+            var handler = this.Message;
+            if (handler != null)
             {
-                callback(message, code.HasValue ? code.Value : 0);
+                handler(this, new DownloadFileCommandMessageEventHandlerArgs(message, code ?? 0));
             }
         }
 
-        private void SendProgress(float progress, int bytesPerSecond, out bool cancel)
+        private void OnProgress(float progress, int bytesPerSecond, out bool cancel)
         {
-            var callback = this.reportProgressCallback;
+            var callback = this.Progress;
             if (callback != null)
             {
-                callback(progress, bytesPerSecond, out cancel);
+                var args = new DownloadFileCommandProgressEventHandlerArgs(progress, bytesPerSecond);
+                callback(this, args);
+                cancel = args.Cancel;
                 return;
             }
 
