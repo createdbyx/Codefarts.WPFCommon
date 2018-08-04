@@ -12,12 +12,14 @@ namespace Codefarts.WPFCommon.Commands
         private Func<object, bool> canExecuteCallback;
         private Action<object> executeCallback;
 
+        private bool isNotifying;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DelegateCommand"/> class.
         /// </summary>
         public DelegateCommand()
         {
-            this.IsNotifying = true;
+            this.isNotifying = true;
         }
 
         /// <summary>
@@ -30,7 +32,23 @@ namespace Codefarts.WPFCommon.Commands
         /// Virtualized in order to help with document oriented view models.
         /// </summary>
         [XmlIgnore]
-        public virtual bool IsNotifying { get; set; }
+        public virtual bool IsNotifying
+        {
+            get
+            {
+                return this.isNotifying;
+            }
+
+            set
+            {
+                var currentValue = this.isNotifying;
+                if (currentValue != value)
+                {
+                    this.isNotifying = value;
+                    this.NotifyOfPropertyChange(() => this.IsNotifying);
+                }
+            }
+        }
 
         /// <summary>
         /// Raises a change notification indicating that all bindings should be refreshed.
