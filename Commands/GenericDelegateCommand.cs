@@ -8,6 +8,8 @@ namespace Codefarts.WPFCommon.Commands
         private Func<T, bool> canExecuteCallback;
         private Action<T> executeCallback;
 
+        public event EventHandler Initialize;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.Object"/> class.
         /// </summary>
@@ -61,7 +63,7 @@ namespace Codefarts.WPFCommon.Commands
         /// <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
         public virtual bool CanExecute(object parameter)
         {
-            return CanExecute((T)parameter);
+            return this.CanExecute((T)parameter);
         }
 
         /// <summary>
@@ -73,6 +75,7 @@ namespace Codefarts.WPFCommon.Commands
         /// <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
         public virtual bool CanExecute(T parameter)
         {
+            this.OnInitialize();
             return this.canExecuteCallback(parameter);
         }
 
@@ -111,5 +114,14 @@ namespace Codefarts.WPFCommon.Commands
         }
 
         #endregion
+
+        protected virtual void OnInitialize()
+        {
+            var handler = this.Initialize;
+            if (handler != null)
+            {
+                handler.Invoke(this, EventArgs.Empty);
+            }
+        }
     }
 }
