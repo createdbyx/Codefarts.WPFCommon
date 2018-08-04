@@ -65,12 +65,14 @@
     <Compile Include="Commands\AsyncCommand.cs" />
     <Compile Include="Commands\CloseWindowCommand.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />
+    <Compile Include="Commands\DownloadFileCommand.cs" />
     <Compile Include="Commands\EventBehaviourFactory.cs" />
     <Compile Include="Commands\GenericDelegateCommand.cs" />
     <Compile Include="Behaviours\MouseBehaviours.cs" />
     <Compile Include="Commands\MoveItemDownCommand.cs" />
     <Compile Include="Commands\MoveItemUpCommand.cs" />
     <Compile Include="Commands\MoveListItemCommand.cs" />
+    <Compile Include="Commands\MultiCommand.cs" />
     <Compile Include="Commands\NewCommand.cs" />
     <Compile Include="Commands\OpenFileCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
@@ -83,12 +85,14 @@
     <Compile Include="Converters\DebuggingDataBindingConverter.cs" />
     <Compile Include="Converters\GridLengthConverter.cs" />
     <Compile Include="Converters\IntegerAdditionConverter.cs" />
+    <Compile Include="Converters\IntegerDividerConverter.cs" />
     <Compile Include="Converters\IntegerToVisibilityConverter.cs" />
     <Compile Include="Converters\StringPathToTreeViewNodeConverter.cs" />
     <Compile Include="DebuggerTraceListener.cs" />
     <Compile Include="ExceptionArgs.cs" />
     <Compile Include="HelpersFunctions.cs" />
     <Compile Include="Models\CheckedListItem.cs" />
+    <Compile Include="PagingCollectionView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
