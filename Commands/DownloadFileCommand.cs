@@ -27,6 +27,7 @@ namespace Codefarts.WPFCommon.Commands
         private Uri url;
 
         public event DownloadFileCommandMessageEventHandler Message;
+
         public event DownloadFileCommandProgressEventHandler Progress;
 
         public DownloadFileCommand(Uri url, Stream outputStream)
@@ -130,7 +131,7 @@ namespace Codefarts.WPFCommon.Commands
             {
                 var request = (HttpWebRequest)WebRequest.Create(this.url);
 
-                this.OnMessage(this.url.ToString());
+                this.OnMessage("Requesting data: " + this.url);
 
                 if (this.ifModifiedSince != DateTime.MinValue)
                 {
@@ -230,8 +231,6 @@ namespace Codefarts.WPFCommon.Commands
             {
                 this.OnError();
             }
-
-            // return new CommandResult<string>() { Successful = true };
         }
 
         protected void OnMessage(string message, int? code = 0)
