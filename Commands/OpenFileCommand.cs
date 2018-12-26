@@ -9,6 +9,7 @@ namespace Codefarts.WPFCommon.Commands
         public Action<string> FileSelected { get; set; }
 
         public string SelectedFile { get; set; }
+
         public string Filter { get; set; }
 
         public bool ExpectsOwnerWindow { get; set; }
@@ -16,22 +17,26 @@ namespace Codefarts.WPFCommon.Commands
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.Object"/> class.
         /// </summary>
-        public OpenFileCommand(bool expectsOwnerWindow) : this()
+        public OpenFileCommand(bool expectsOwnerWindow)
+            : this()
         {
             this.ExpectsOwnerWindow = expectsOwnerWindow;
         }
 
-        public OpenFileCommand(Action<string> fileSelectedCallback) : this()
+        public OpenFileCommand(Action<string> fileSelectedCallback)
+            : this()
         {
             this.FileSelected = fileSelectedCallback;
         }
 
-        public OpenFileCommand(string file, Action<string> pathSelectedCallback) : this(pathSelectedCallback)
+        public OpenFileCommand(string file, Action<string> pathSelectedCallback)
+            : this(pathSelectedCallback)
         {
             this.SelectedFile = file;
         }
 
-        public OpenFileCommand(string file, string filter, Action<string> pathSelectedCallback) : this(pathSelectedCallback)
+        public OpenFileCommand(string file, string filter, Action<string> pathSelectedCallback)
+            : this(pathSelectedCallback)
         {
             this.SelectedFile = file;
             this.Filter = filter;
@@ -61,6 +66,12 @@ namespace Codefarts.WPFCommon.Commands
                     }
                 }
             };
+        }
+
+        public OpenFileCommand(Action<string> pathSelectedCallback, string filter)
+            : this(pathSelectedCallback)
+        {
+            this.Filter = filter;
         }
     }
 }
