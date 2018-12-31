@@ -58,6 +58,7 @@
     <Compile Include="Behaviours\Attached\EventHandlerGenerator.cs" />
     <Compile Include="Behaviours\Attached\ExecutionStrategy.cs" />
     <Compile Include="Behaviours\Attached\SimpleCommand.cs" />
+    <Compile Include="Behaviours\FilterBehaviours.cs" />
     <Compile Include="Behaviours\ItemsControlAttachedProperties.cs" />
     <Compile Include="BindingProxy.cs" />
     <Compile Include="BindingProxyControl.cs" />
