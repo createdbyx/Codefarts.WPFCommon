@@ -68,6 +68,13 @@ namespace Codefarts.WPFCommon.Commands
             };
         }
 
+        public OpenFileCommand(Action<string> pathSelectedCallback, string filter,bool expectsOwnerWindow)
+            : this(pathSelectedCallback)
+        {
+            this.Filter = filter;
+            this.ExpectsOwnerWindow = expectsOwnerWindow;
+        }
+
         public OpenFileCommand(Action<string> pathSelectedCallback, string filter)
             : this(pathSelectedCallback)
         {
