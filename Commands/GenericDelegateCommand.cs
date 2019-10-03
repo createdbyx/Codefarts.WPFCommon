@@ -17,7 +17,7 @@ namespace Codefarts.WPFCommon.Commands
         public event EventHandler Initialize;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GenericDelegateCommand"/> class.
+        /// Initializes a new instance of the <see cref="GenericDelegateCommand{T}"/> class.
         /// </summary>
         public GenericDelegateCommand()
         {
@@ -50,6 +50,24 @@ namespace Codefarts.WPFCommon.Commands
                     this.NotifyOfPropertyChange(() => this.IsNotifying);
                 }
             }
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="GenericDelegateCommand{T}"/> class.</summary>
+        /// <param name="canExecuteCallback">Sets the <see cref="CanExecuteCallback"/> property.</param>
+        /// <param name="executeCallback">Sets the <see cref="ExecuteCallback"/> property.</param>
+        public GenericDelegateCommand(Func<T, bool> canExecuteCallback, Action<T> executeCallback)
+        {
+            this.canExecuteCallback = canExecuteCallback;
+            this.executeCallback = executeCallback;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GenericDelegateCommand{T}"/> class.
+        /// </summary>
+        /// <param name="executeCallback">Sets the <see cref="ExecuteCallback"/> property.</param>
+        public GenericDelegateCommand(Action<T> executeCallback)
+        {
+            this.executeCallback = executeCallback;
         }
 
         /// <summary>
@@ -120,15 +138,6 @@ namespace Codefarts.WPFCommon.Commands
             return memberExpression.Member;
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:System.Object"/> class.
-        /// </summary>
-        public GenericDelegateCommand(Func<T, bool> canExecuteCallback, Action<T> executeCallback)
-        {
-            this.canExecuteCallback = canExecuteCallback;
-            this.executeCallback = executeCallback;
-        }
-
         #region Implementation of ICommand
 
         public Func<T, bool> CanExecuteCallback
@@ -179,7 +188,13 @@ namespace Codefarts.WPFCommon.Commands
         public virtual bool CanExecute(T parameter)
         {
             this.OnInitialize();
-            return this.canExecuteCallback(parameter);
+            var callback = this.canExecuteCallback;
+            if (callback == null)
+            {
+                return true;
+            }
+
+            return callback(parameter);
         }
 
         /// <summary>
@@ -197,7 +212,11 @@ namespace Codefarts.WPFCommon.Commands
         /// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
         public virtual void Execute(T parameter)
         {
-            this.executeCallback(parameter);
+            var callback = this.executeCallback;
+            if (callback != null)
+            {
+                callback(parameter);
+            }
         }
 
         /// <summary>
