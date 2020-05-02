@@ -1,3 +1,9 @@
+// <copyright file="SelectFolderCommand.cs" company="Codefarts">
+// Copyright (c) Codefarts
+// contact@codefarts.com
+// http://www.codefarts.com
+// </copyright>
+
 namespace Codefarts.WPFCommon.Commands
 {
     using System;
@@ -8,7 +14,10 @@ namespace Codefarts.WPFCommon.Commands
     {
         private string selectedPath;
 
-        public Action<string> PathSelected { get; set; }
+        public Action<string> PathSelected
+        {
+            get; set;
+        }
 
         public string SelectedPath
         {
@@ -23,7 +32,10 @@ namespace Codefarts.WPFCommon.Commands
             }
         }
 
-        public bool ExpectsOwnerWindow { get; set; }
+        public bool ExpectsOwnerWindow
+        {
+            get; set;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.Object"/> class.
@@ -65,7 +77,11 @@ namespace Codefarts.WPFCommon.Commands
                 var dialog = new FolderBrowserDialog();
                 dialog.SelectedPath = this.selectedPath;
                 var window = parameter as Visual;
+#if NETCOREAPP3_1
+                var result = !this.ExpectsOwnerWindow ? dialog.ShowDialog() : dialog.ShowDialog(HelpersFunctions.GetIWin32WindowForm(window));
+#else
                 var result = !this.ExpectsOwnerWindow ? dialog.ShowDialog() : dialog.ShowDialog(HelpersFunctions.GetIWin32Window(window));
+#endif  
                 if (result == DialogResult.OK)
                 {
                     this.selectedPath = dialog.SelectedPath;

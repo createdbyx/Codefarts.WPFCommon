@@ -45,7 +45,8 @@ namespace Codefarts.WPFCommon.Commands
 
         public bool CanExecute(object parameter)
         {
-            return this.canExecute == null || this.canExecute(parameter);
+            var callback = this.canExecute;
+            return callback != null && callback(parameter);
         }
 
         public event EventHandler CanExecuteChanged

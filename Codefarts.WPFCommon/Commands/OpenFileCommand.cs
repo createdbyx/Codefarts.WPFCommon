@@ -1,18 +1,40 @@
+// <copyright file="OpenFileCommand.cs" company="Codefarts">
+// Copyright (c) Codefarts
+// </copyright>
+
+
 namespace Codefarts.WPFCommon.Commands
 {
     using System;
+#if NETCOREAPP3_1
+    using Microsoft.Win32;
+    using System.Windows;
+#else
     using System.Windows.Forms;
+#endif
     using System.Windows.Media;
 
     public class OpenFileCommand : DelegateCommand
     {
-        public Action<string> FileSelected { get; set; }
+        public Action<string> FileSelected
+        {
+            get; set;
+        }
 
-        public string SelectedFile { get; set; }
+        public string SelectedFile
+        {
+            get; set;
+        }
 
-        public string Filter { get; set; }
+        public string Filter
+        {
+            get; set;
+        }
 
-        public bool ExpectsOwnerWindow { get; set; }
+        public bool ExpectsOwnerWindow
+        {
+            get; set;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.Object"/> class.
@@ -47,16 +69,25 @@ namespace Codefarts.WPFCommon.Commands
         /// </summary>
         public OpenFileCommand()
         {
+#if NETCOREAPP3_1
+            this.CanExecuteCallback = parameter => !this.ExpectsOwnerWindow || (this.ExpectsOwnerWindow && parameter is Window);
+#else
             this.CanExecuteCallback = parameter => !this.ExpectsOwnerWindow || (this.ExpectsOwnerWindow && parameter is Visual);
+#endif
             this.ExecuteCallback = parameter =>
             {
                 var dialog = new OpenFileDialog();
                 dialog.Filter = this.Filter;
                 dialog.FileName = this.SelectedFile;
+#if NETCOREAPP3_1
+                var window = parameter as Window;
+                var result = !this.ExpectsOwnerWindow ? dialog.ShowDialog() : dialog.ShowDialog(window);
+                if (result.HasValue && result.Value)
+#else
                 var window = parameter as Visual;
                 var result = !this.ExpectsOwnerWindow ? dialog.ShowDialog() : dialog.ShowDialog(HelpersFunctions.GetIWin32Window(window));
-                //  var result = !this.ExpectsOwnerWindow ? dialog.ShowDialog() : dialog.ShowDialog(parameter as IWin32Window);
                 if (result == DialogResult.OK)
+#endif
                 {
                     this.SelectedFile = dialog.FileName;
                     var action = this.FileSelected;
@@ -68,7 +99,7 @@ namespace Codefarts.WPFCommon.Commands
             };
         }
 
-        public OpenFileCommand(Action<string> pathSelectedCallback, string filter,bool expectsOwnerWindow)
+        public OpenFileCommand(Action<string> pathSelectedCallback, string filter, bool expectsOwnerWindow)
             : this(pathSelectedCallback)
         {
             this.Filter = filter;

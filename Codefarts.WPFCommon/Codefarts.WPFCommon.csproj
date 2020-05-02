@@ -51,12 +51,14 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviours\Attached\ActionExecutionStrategy.cs" />
     <Compile Include="Behaviours\Attached\BehaviorBinding.cs" />
     <Compile Include="Behaviours\Attached\CommandBehavior.cs" />
     <Compile Include="Behaviours\Attached\CommandBehaviorBinding.cs" />
     <Compile Include="Behaviours\Attached\CommandBehaviorCollection.cs" />
+    <Compile Include="Behaviours\Attached\CommandExecutionStrategy.cs" />
     <Compile Include="Behaviours\Attached\EventHandlerGenerator.cs" />
-    <Compile Include="Behaviours\Attached\ExecutionStrategy.cs" />
+    <Compile Include="Behaviours\Attached\IExecutionStrategy.cs" />
     <Compile Include="Behaviours\Attached\SimpleCommand.cs" />
     <Compile Include="Behaviours\FilterBehaviours.cs" />
     <Compile Include="Behaviours\ItemsControlAttachedProperties.cs" />
@@ -88,6 +90,7 @@
     <Compile Include="Converters\IntegerAdditionConverter.cs" />
     <Compile Include="Converters\IntegerDividerConverter.cs" />
     <Compile Include="Converters\IntegerToVisibilityConverter.cs" />
+    <Compile Include="Converters\ReversedBooleanConverter.cs" />
     <Compile Include="Converters\StringPathToTreeViewNodeConverter.cs" />
     <Compile Include="DebuggerTraceListener.cs" />
     <Compile Include="EventHandler Arguments\DownloadFileCommandMessageEventHandlerArgs.cs" />
@@ -103,8 +106,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\CombinedProjectsSolution\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\CombinedProjectsSolution\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+    <Analyzer Include="..\..\Codefarts.StockMarket\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\..\Codefarts.StockMarket\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

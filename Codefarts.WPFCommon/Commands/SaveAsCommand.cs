@@ -1,18 +1,40 @@
-﻿namespace Codefarts.WPFCommon.Commands
+﻿// <copyright file="SaveAsCommand.cs" company="Codefarts">
+// Copyright (c) Codefarts
+// </copyright>
+
+using System.Windows;
+
+namespace Codefarts.WPFCommon.Commands
 {
     using System;
+#if NETCOREAPP3_1
+    using Microsoft.Win32;
+#else
     using System.Windows.Forms;
+#endif
     using System.Windows.Media;
 
     public class SaveAsCommand : DelegateCommand
     {
-        public Action<string> FileSelected { get; set; }
+        public Action<string> FileSelected
+        {
+            get; set;
+        }
 
-        public string SelectedFile { get; set; }
+        public string SelectedFile
+        {
+            get; set;
+        }
 
-        public string Filter { get; set; }
+        public string Filter
+        {
+            get; set;
+        }
 
-        public bool ExpectsOwnerWindow { get; set; }
+        public bool ExpectsOwnerWindow
+        {
+            get; set;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SaveAsCommand"/> class.
@@ -26,7 +48,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="SaveAsCommand"/> class.
         /// </summary>
-        /// <param name="fileSelectedCallback">The callback to be called when a file has been succesfully selected.</param>
+        /// <param name="fileSelectedCallback">The callback to be called when a file has been successfully selected.</param>
         public SaveAsCommand(Action<string> fileSelectedCallback)
             : this()
         {
@@ -36,7 +58,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="SaveAsCommand"/> class.
         /// </summary>
-        /// <param name="fileSelectedCallback">The callback to be called when a file has been succesfully selected.</param>
+        /// <param name="fileSelectedCallback">The callback to be called when a file has been successfully selected.</param>
         public SaveAsCommand(bool expectsOwnerWindow, Action<string> fileSelectedCallback)
             : this(fileSelectedCallback)
         {
@@ -61,16 +83,25 @@
         /// </summary>
         public SaveAsCommand()
         {
+#if NETCOREAPP3_1
+            this.CanExecuteCallback = parameter => !this.ExpectsOwnerWindow || (this.ExpectsOwnerWindow && parameter is Window);
+#else
             this.CanExecuteCallback = parameter => !this.ExpectsOwnerWindow || (this.ExpectsOwnerWindow && parameter is Visual);
+#endif
             this.ExecuteCallback = parameter =>
             {
                 var dialog = new SaveFileDialog();
                 dialog.Filter = this.Filter;
                 dialog.FileName = this.SelectedFile;
+#if NETCOREAPP3_1
+                var window = parameter as Window;
+                var result = !this.ExpectsOwnerWindow ? dialog.ShowDialog() : dialog.ShowDialog(window);
+                if (result.HasValue && result.Value)
+#else
                 var window = parameter as Visual;
                 var result = !this.ExpectsOwnerWindow ? dialog.ShowDialog() : dialog.ShowDialog(HelpersFunctions.GetIWin32Window(window));
-                //   var result = !this.ExpectsOwnerWindow ? dialog.ShowDialog() : dialog.ShowDialog(parameter as IWin32Window);
                 if (result == DialogResult.OK)
+#endif
                 {
                     this.SelectedFile = dialog.FileName;
                     var action = this.FileSelected;

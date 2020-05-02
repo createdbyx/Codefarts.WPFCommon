@@ -1,22 +1,31 @@
-﻿namespace Codefarts.WPFCommon
+﻿// <copyright file="BindingProxy.cs" company="Codefarts">
+// Copyright (c) Codefarts
+// contact@codefarts.com
+// http://www.codefarts.com
+// </copyright>
+
+namespace Codefarts.WPFCommon
 {
     using System.Windows;
 
     public class BindingProxy : Freezable
     {
-        #region Overrides of Freezable
-
         protected override Freezable CreateInstanceCore()
         {
             return new BindingProxy();
         }
 
-        #endregion
-
         public object Data
         {
-            get { return (object)GetValue(DataProperty); }
-            set { SetValue(DataProperty, value); }
+            get
+            {
+                return (object)this.GetValue(DataProperty);
+            }
+
+            set
+            {
+                this.SetValue(DataProperty, value);
+            }
         }
 
         // Using a DependencyProperty as the backing store for Data.  This enables animation, styling, binding, etc...
