@@ -7,9 +7,7 @@
 namespace Codefarts.WPFCommon.Commands
 {
     using System;
-#if NETCOREAPP3_1 || NET5_0_OR_GREATER
     using System.Windows.Forms;
-#endif
     using System.Windows.Media;
 
     public class SelectFolderCommand : DelegateCommand
