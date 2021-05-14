@@ -5,9 +5,7 @@ namespace Codefarts.WPFCommon.Commands
     using System.Windows.Input;
 
     public class AppShutdownCommand : ICommand
-    {          
-        #region Implementation of ICommand
-
+    {
         /// <summary>
         /// Defines the method that determines whether the command can execute in its current state.
         /// </summary>
@@ -26,7 +24,7 @@ namespace Codefarts.WPFCommon.Commands
         /// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
         public virtual void Execute(object parameter)
         {
-            Application.Current.Shutdown(); 
+            Application.Current.Shutdown();
         }
 
         /// <summary>
@@ -44,7 +42,5 @@ namespace Codefarts.WPFCommon.Commands
                 CommandManager.RequerySuggested -= value;
             }
         }
-
-        #endregion
     }
 }

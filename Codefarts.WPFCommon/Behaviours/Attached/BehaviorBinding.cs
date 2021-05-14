@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media;
-
-namespace AttachedCommandBehavior
+﻿namespace AttachedCommandBehavior
 {
+    using System;
+    using System.Windows;
+    using System.Windows.Input;
+
     /// <summary>
     /// Defines a Command Binding
-    /// This inherits from freezable so that it gets inheritance context for DataBinding to work
+    /// This inherits from freezable so that it gets inheritance context for DataBinding to work.
     /// </summary>
     public class BehaviorBinding : Freezable
     {
         CommandBehaviorBinding behavior;
 
         /// <summary>
-        /// Stores the Command Behavior Binding
+        /// Stores the Command Behavior Binding.
         /// </summary>
         internal CommandBehaviorBinding Behavior
         {
@@ -35,7 +31,7 @@ namespace AttachedCommandBehavior
         DependencyObject owner;
 
         /// <summary>
-        /// Gets or sets the Owner of the binding
+        /// Gets or sets the Owner of the binding.
         /// </summary>
         public DependencyObject Owner
         {
@@ -51,23 +47,27 @@ namespace AttachedCommandBehavior
             }
         }
 
-        #region Command
-
         /// <summary>
         /// Command Dependency Property
         /// </summary>
         public static readonly DependencyProperty CommandProperty =
             DependencyProperty.Register("Command", typeof(ICommand), typeof(BehaviorBinding),
-                new FrameworkPropertyMetadata((ICommand)null,
-                    new PropertyChangedCallback(OnCommandChanged)));
+                new FrameworkPropertyMetadata(null, OnCommandChanged));
 
         /// <summary>
-        /// Gets or sets the Command property.  
+        /// Gets or sets the Command property.
         /// </summary>
         public ICommand Command
         {
-            get { return (ICommand)this.GetValue(CommandProperty); }
-            set { this.SetValue(CommandProperty, value); }
+            get
+            {
+                return (ICommand)this.GetValue(CommandProperty);
+            }
+
+            set
+            {
+                this.SetValue(CommandProperty, value);
+            }
         }
 
         /// <summary>
@@ -86,25 +86,27 @@ namespace AttachedCommandBehavior
             this.Behavior.Command = this.Command;
         }
 
-        #endregion
-
-        #region Action
-
         /// <summary>
         /// Action Dependency Property
         /// </summary>
         public static readonly DependencyProperty ActionProperty =
             DependencyProperty.Register("Action", typeof(Action<object>), typeof(BehaviorBinding),
-                new FrameworkPropertyMetadata((Action<object>)null,
-                    new PropertyChangedCallback(OnActionChanged)));
+                new FrameworkPropertyMetadata(null, OnActionChanged));
 
         /// <summary>
-        /// Gets or sets the Action property. 
+        /// Gets or sets the Action property.
         /// </summary>
         public Action<object> Action
         {
-            get { return (Action<object>)this.GetValue(ActionProperty); }
-            set { this.SetValue(ActionProperty, value); }
+            get
+            {
+                return (Action<object>)this.GetValue(ActionProperty);
+            }
+
+            set
+            {
+                this.SetValue(ActionProperty, value);
+            }
         }
 
         /// <summary>
@@ -123,25 +125,27 @@ namespace AttachedCommandBehavior
             this.Behavior.Action = this.Action;
         }
 
-        #endregion
-
-        #region CommandParameter
-
         /// <summary>
-        /// CommandParameter Dependency Property
+        /// CommandParameter Dependency Property.
         /// </summary>
         public static readonly DependencyProperty CommandParameterProperty =
             DependencyProperty.Register("CommandParameter", typeof(object), typeof(BehaviorBinding),
-                new FrameworkPropertyMetadata((object)null,
-                    new PropertyChangedCallback(OnCommandParameterChanged)));
+                new FrameworkPropertyMetadata(null, OnCommandParameterChanged));
 
         /// <summary>
-        /// Gets or sets the CommandParameter property.  
+        /// Gets or sets the CommandParameter property.
         /// </summary>
         public object CommandParameter
         {
-            get { return (object)this.GetValue(CommandParameterProperty); }
-            set { this.SetValue(CommandParameterProperty, value); }
+            get
+            {
+                return this.GetValue(CommandParameterProperty);
+            }
+
+            set
+            {
+                this.SetValue(CommandParameterProperty, value);
+            }
         }
 
         /// <summary>
@@ -160,25 +164,27 @@ namespace AttachedCommandBehavior
             this.Behavior.CommandParameter = this.CommandParameter;
         }
 
-        #endregion
-
-        #region Event
-
         /// <summary>
         /// Event Dependency Property
         /// </summary>
         public static readonly DependencyProperty EventProperty =
             DependencyProperty.Register("Event", typeof(string), typeof(BehaviorBinding),
-                new FrameworkPropertyMetadata((string)null,
-                    new PropertyChangedCallback(OnEventChanged)));
+                new FrameworkPropertyMetadata(null, OnEventChanged));
 
         /// <summary>
-        /// Gets or sets the Event property.  
+        /// Gets or sets the Event property.
         /// </summary>
         public string Event
         {
-            get { return (string)this.GetValue(EventProperty); }
-            set { this.SetValue(EventProperty, value); }
+            get
+            {
+                return (string)this.GetValue(EventProperty);
+            }
+
+            set
+            {
+                this.SetValue(EventProperty, value);
+            }
         }
 
         /// <summary>
@@ -197,8 +203,6 @@ namespace AttachedCommandBehavior
             this.ResetEventBinding();
         }
 
-        #endregion
-
         static void OwnerReset(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ((BehaviorBinding)d).ResetEventBinding();
@@ -206,21 +210,24 @@ namespace AttachedCommandBehavior
 
         private void ResetEventBinding()
         {
-            if (this.Owner != null) //only do this when the Owner is set
+            // only do this when the Owner is set
+            if (this.Owner == null)
             {
-                //check if the Event is set. If yes we need to rebind the Command to the new event and unregister the old one
-                if (this.Behavior.Event != null && this.Behavior.Owner != null)
-                {
-                    this.Behavior.Dispose();
-                }
-
-                //bind the new event to the command
-                this.Behavior.BindEvent(this.Owner, this.Event);
+                return;
             }
+
+            // check if the Event is set. If yes we need to rebind the Command to the new event and unregister the old one
+            if (this.Behavior.Event != null && this.Behavior.Owner != null)
+            {
+                this.Behavior.Dispose();
+            }
+
+            // bind the new event to the command
+            this.Behavior.BindEvent(this.Owner, this.Event);
         }
 
         /// <summary>
-        /// This is not actually used. This is just a trick so that this object gets WPF Inheritance Context
+        /// This is not actually used. This is just a trick so that this object gets WPF Inheritance Context.
         /// </summary>
         /// <returns></returns>
         protected override Freezable CreateInstanceCore()

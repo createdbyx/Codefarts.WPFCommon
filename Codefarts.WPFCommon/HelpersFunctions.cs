@@ -2,7 +2,7 @@ namespace Codefarts.WPFCommon
 {
     using System;
     using System.Windows;
-#if NETCOREAPP3_1
+#if NETCOREAPP3_1 || NET5_0_OR_GREATER
     using System.Windows.Interop;
 #else
     using System.Windows.Forms;
@@ -11,7 +11,7 @@ namespace Codefarts.WPFCommon
 
     internal class HelpersFunctions
     {
-#if NETCOREAPP3_1
+#if NETCOREAPP3_1 || NET5_0_OR_GREATER
         public static System.Windows.Forms.IWin32Window GetIWin32WindowForm(Visual visual)
         {
             var source = PresentationSource.FromVisual(visual) as System.Windows.Interop.HwndSource;

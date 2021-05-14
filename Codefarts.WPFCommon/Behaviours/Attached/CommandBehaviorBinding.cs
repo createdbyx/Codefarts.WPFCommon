@@ -1,4 +1,6 @@
-﻿namespace AttachedCommandBehavior
+﻿using System.ComponentModel;
+
+namespace AttachedCommandBehavior
 {
     using System;
     using System.Reflection;
@@ -6,15 +8,19 @@
     using System.Windows.Input;
 
     /// <summary>
-    /// Defines the command behavior binding
+    /// Defines the command behavior binding.
     /// </summary>
     public class CommandBehaviorBinding : IDisposable
     {
-        #region Properties
+        // stores the strategy of how to execute the event handler
+        Action<object> action;
+        ICommand command;
+        IExecutionStrategy strategy;
+        bool disposed;
 
         /// <summary>
         /// Get the owner of the CommandBinding ex: a Button
-        /// This property can only be set from the BindEvent Method
+        /// This property can only be set from the BindEvent Method.
         /// </summary>
         public DependencyObject Owner
         {
@@ -23,7 +29,7 @@
 
         /// <summary>
         /// The event name to hook up to
-        /// This property can only be set from the BindEvent Method
+        /// This property can only be set from the BindEvent Method.
         /// </summary>
         public string EventName
         {
@@ -31,7 +37,7 @@
         }
 
         /// <summary>
-        /// The event info of the event
+        /// The event info of the event.
         /// </summary>
         public EventInfo Event
         {
@@ -39,30 +45,23 @@
         }
 
         /// <summary>
-        /// Gets the EventHandler for the binding with the event
+        /// Gets the EventHandler for the binding with the event.
         /// </summary>
         public Delegate EventHandler
         {
             get; private set;
         }
 
-        #region Execution
-
-        // stores the strategy of how to execute the event handler
-        IExecutionStrategy strategy;
-
         /// <summary>
-        /// Gets or sets a CommandParameter
+        /// Gets or sets a CommandParameter.
         /// </summary>
         public object CommandParameter
         {
             get; set;
         }
 
-        ICommand command;
-
         /// <summary>
-        /// The command to execute when the specified event is raised
+        /// The command to execute when the specified event is raised.
         /// </summary>
         public ICommand Command
         {
@@ -80,10 +79,8 @@
             }
         }
 
-        Action<object> action;
-
         /// <summary>
-        /// Gets or sets the Action
+        /// Gets or sets the Action.
         /// </summary>
         public Action<object> Action
         {
@@ -100,19 +97,16 @@
                 this.strategy = new ActionExecutionStrategy { Behavior = this };
             }
         }
-        #endregion
-
-        #endregion
 
         // Creates an EventHandler on runtime and registers that handler to the Event specified
         public void BindEvent(DependencyObject owner, string eventName)
         {
             this.EventName = eventName;
-            this.Owner = owner;
-            this.Event = this.Owner.GetType().GetEvent(this.EventName, BindingFlags.Public | BindingFlags.Instance);
+            this.Owner = owner ?? throw new ArgumentNullException(nameof(owner));
+            this.Event = owner.GetType().GetEvent(this.EventName, BindingFlags.Public | BindingFlags.Instance);
             if (this.Event == null)
             {
-                throw new InvalidOperationException(String.Format("Could not resolve event name {0}", this.EventName));
+                throw new InvalidOperationException(string.Format("Could not resolve event name {0}", this.EventName));
             }
 
             // Create an event handler for the event that will call the ExecuteCommand method
@@ -124,18 +118,19 @@
         }
 
         /// <summary>
-        /// Executes the strategy
+        /// Executes the strategy.
         /// </summary>
         public void Execute()
         {
-            this.strategy.Execute(this.CommandParameter);
+            var application = Application.Current;
+            if (!DesignerProperties.GetIsInDesignMode(application.MainWindow ?? throw new InvalidOperationException()))
+            {
+                this.strategy.Execute(this.CommandParameter);
+            }
         }
 
-        #region IDisposable Members
-        bool disposed = false;
-
         /// <summary>
-        /// Unregisters the EventHandler from the Event
+        /// De-register the EventHandler from the Event.
         /// </summary>
         public void Dispose()
         {
@@ -145,7 +140,5 @@
                 this.disposed = true;
             }
         }
-
-        #endregion
     }
 }

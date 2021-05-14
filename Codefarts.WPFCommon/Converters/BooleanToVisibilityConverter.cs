@@ -13,7 +13,10 @@
         /// <summary>
         /// If set to True, conversion is reversed: True will become Collapsed.
         /// </summary>
-        public bool IsReversed { get; set; }
+        public bool IsReversed
+        {
+            get; set;
+        }
 
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

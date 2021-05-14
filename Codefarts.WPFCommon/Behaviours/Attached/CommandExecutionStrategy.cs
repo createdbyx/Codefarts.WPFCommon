@@ -1,32 +1,37 @@
-﻿using System;
-
-namespace AttachedCommandBehavior
+﻿namespace AttachedCommandBehavior
 {
+    using System;
+
     /// <summary>
-    /// Executes a command 
+    /// Executes a command.
     /// </summary>
     public class CommandExecutionStrategy : IExecutionStrategy
     {
-        #region IExecutionStrategy Members
         /// <summary>
-        /// Gets or sets the Behavior that we execute this strategy
+        /// Gets or sets the Behavior that we execute this strategy.
         /// </summary>
-        public CommandBehaviorBinding Behavior { get; set; }
-
-        /// <summary>
-        /// Executes the Command that is stored in the CommandProperty of the CommandExecution
-        /// </summary>
-        /// <param name="parameter">The parameter for the command</param>
-        public void Execute(object parameter)
+        public CommandBehaviorBinding Behavior
         {
-            if (Behavior == null)
-                throw new InvalidOperationException("Behavior property cannot be null when executing a strategy");
-
-            if (Behavior.Command.CanExecute(Behavior.CommandParameter))
-                Behavior.Command.Execute(Behavior.CommandParameter);
+            get; set;
         }
 
-        #endregion
+        /// <summary>
+        /// Executes the Command that is stored in the CommandProperty of the CommandExecution.
+        /// </summary>
+        /// <param name="parameter">The parameter for the command.</param>
+        public void Execute(object parameter)
+        {
+            var behavior = this.Behavior;
+            if (behavior == null)
+            {
+                throw new InvalidOperationException("Behavior property cannot be null when executing a strategy.");
+            }
+
+            if (behavior.Command.CanExecute(behavior.CommandParameter))
+            {
+                behavior.Command.Execute(behavior.CommandParameter);
+            }
+        }
     }
 
 }
