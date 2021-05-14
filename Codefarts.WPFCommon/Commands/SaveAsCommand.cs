@@ -1,13 +1,14 @@
 ﻿// <copyright file="SaveAsCommand.cs" company="Codefarts">
 // Copyright (c) Codefarts
+// contact@codefarts.com
+// http://www.codefarts.com
 // </copyright>
-
-using System.Windows;
 
 namespace Codefarts.WPFCommon.Commands
 {
     using System;
-#if NETCOREAPP3_1
+#if NETCOREAPP3_1_OR_GREATER
+    using System.Windows;
     using Microsoft.Win32;
 #else
     using System.Windows.Forms;
@@ -83,7 +84,7 @@ namespace Codefarts.WPFCommon.Commands
         /// </summary>
         public SaveAsCommand()
         {
-#if NETCOREAPP3_1
+#if NETCOREAPP3_1_OR_GREATER
             this.CanExecuteCallback = parameter => !this.ExpectsOwnerWindow || (this.ExpectsOwnerWindow && parameter is Window);
 #else
             this.CanExecuteCallback = parameter => !this.ExpectsOwnerWindow || (this.ExpectsOwnerWindow && parameter is Visual);
@@ -93,7 +94,7 @@ namespace Codefarts.WPFCommon.Commands
                 var dialog = new SaveFileDialog();
                 dialog.Filter = this.Filter;
                 dialog.FileName = this.SelectedFile;
-#if NETCOREAPP3_1
+#if NETCOREAPP3_1_OR_GREATER
                 var window = parameter as Window;
                 var result = !this.ExpectsOwnerWindow ? dialog.ShowDialog() : dialog.ShowDialog(window);
                 if (result.HasValue && result.Value)

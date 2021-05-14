@@ -1,11 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Input;
+﻿// <copyright file="SimpleCommand.cs" company="Codefarts">
+// Copyright (c) Codefarts
+// contact@codefarts.com
+// http://www.codefarts.com
+// </copyright>
 
 namespace AttachedCommandBehavior
 {
+    using System;
+    using System.Windows.Input;
+
     /// <summary>
     /// Implements the ICommand and wraps up all the verbose stuff so that you can just pass 2 delegates 1 for the CanExecute and one for the Execute
     /// </summary>
@@ -32,7 +35,7 @@ namespace AttachedCommandBehavior
         {
             if (CanExecuteDelegate != null)
                 return CanExecuteDelegate(parameter);
-            return true;// if there is no can execute default to true
+            return true; // if there is no can execute default to true
         }
 
         public event EventHandler CanExecuteChanged

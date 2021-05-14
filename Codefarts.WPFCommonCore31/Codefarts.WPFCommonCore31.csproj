@@ -5,14 +5,12 @@
         <UseWPF>true</UseWPF>
         <UseWindowsForms>true</UseWindowsForms>
         <RootNamespace>Codefarts.WPFCommon</RootNamespace>
+        <AssemblyVersion>2020.11.11.0</AssemblyVersion>
+        <FileVersion>2020.11.11.0</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>
         <None Remove="stylecop.json" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <AdditionalFiles Include="stylecop.json" />
     </ItemGroup>
 
     <ItemGroup>
@@ -26,8 +24,12 @@
         <Compile Include="..\Codefarts.WPFCommon\Behaviours\Attached\IExecutionStrategy.cs" Link="Behaviours\Attached\IExecutionStrategy.cs" />
         <Compile Include="..\Codefarts.WPFCommon\Behaviours\Attached\SimpleCommand.cs" Link="Behaviours\Attached\SimpleCommand.cs" />
         <Compile Include="..\Codefarts.WPFCommon\Behaviours\FilterBehaviours.cs" Link="Behaviours\FilterBehaviours.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Behaviours\FrameworkElementBehaviours.cs" Link="Behaviours\FrameworkElementBehaviours.cs" />
         <Compile Include="..\Codefarts.WPFCommon\Behaviours\ItemsControlAttachedProperties.cs" Link="Behaviours\ItemsControlAttachedProperties.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Behaviours\Keyboard\KeyboardBehavioursKeyDown.cs" Link="Behaviours\Keyboard\KeyboardBehavioursKeyDown.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Behaviours\Keyboard\KeyboardBehavioursKeyUp.cs" Link="Behaviours\Keyboard\KeyboardBehavioursKeyUp.cs" />
         <Compile Include="..\Codefarts.WPFCommon\Behaviours\MouseBehaviours.cs" Link="Behaviours\MouseBehaviours.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Behaviours\SelectorBehaviours.cs" Link="Behaviours\SelectorBehaviours.cs" />
         <Compile Include="..\Codefarts.WPFCommon\Behaviours\WindowBehaviours.cs" Link="Behaviours\WindowBehaviours.cs" />
         <Compile Include="..\Codefarts.WPFCommon\BindingProxy.cs" Link="BindingProxy.cs" />
         <Compile Include="..\Codefarts.WPFCommon\BindingProxyControl.cs" Link="BindingProxyControl.cs" />
@@ -56,6 +58,7 @@
         <Compile Include="..\Codefarts.WPFCommon\Converters\IntegerDividerConverter.cs" Link="Converters\IntegerDividerConverter.cs" />
         <Compile Include="..\Codefarts.WPFCommon\Converters\IntegerToVisibilityConverter.cs" Link="Converters\IntegerToVisibilityConverter.cs" />
         <Compile Include="..\Codefarts.WPFCommon\Converters\ReversedBooleanConverter.cs" Link="Converters\ReversedBooleanConverter.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Converters\SingleLineTextConverter.cs" Link="Converters\SingleLineTextConverter.cs" />
         <Compile Include="..\Codefarts.WPFCommon\Converters\StringPathToTreeViewNodeConverter.cs" Link="Converters\StringPathToTreeViewNodeConverter.cs" />
         <Compile Include="..\Codefarts.WPFCommon\DebuggerTraceListener.cs" Link="DebuggerTraceListener.cs" />
         <Compile Include="..\Codefarts.WPFCommon\EventHandler Arguments\DownloadFileCommandMessageEventHandlerArgs.cs" Link="EventHandler Arguments\DownloadFileCommandMessageEventHandlerArgs.cs" />
@@ -64,6 +67,10 @@
         <Compile Include="..\Codefarts.WPFCommon\HelpersFunctions.cs" Link="HelpersFunctions.cs" />
         <Compile Include="..\Codefarts.WPFCommon\Models\CheckedListItem.cs" Link="Models\CheckedListItem.cs" />
         <Compile Include="..\Codefarts.WPFCommon\PagingCollectionView.cs" Link="PagingCollectionView.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
     </ItemGroup>
 
     <ItemGroup>
@@ -79,6 +86,7 @@
 
     <ItemGroup>
         <Folder Include="Behaviours\Attached\" />
+        <Folder Include="Behaviours\Keyboard\" />
         <Folder Include="Models\" />
         <Folder Include="Converters\" />
         <Folder Include="Commands\" />
