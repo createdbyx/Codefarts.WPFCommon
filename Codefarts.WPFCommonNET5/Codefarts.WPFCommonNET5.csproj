@@ -1,0 +1,95 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <UseWPF>true</UseWPF>
+        <UseWindowsForms>true</UseWindowsForms>
+        <AssemblyVersion>2021.4.1.1</AssemblyVersion>
+        <FileVersion>2021.4.1.1</FileVersion>
+        <TargetFramework>net5.0-windows</TargetFramework>
+        <RootNamespace>Codefarts.WPFCommon</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Include="..\Codefarts.WPFCommon\Behaviours\Attached\ActionExecutionStrategy.cs" Link="Behaviours\Attached\ActionExecutionStrategy.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Behaviours\Attached\BehaviorBinding.cs" Link="Behaviours\Attached\BehaviorBinding.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Behaviours\Attached\CommandBehavior.cs" Link="Behaviours\Attached\CommandBehavior.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Behaviours\Attached\CommandBehaviorBinding.cs" Link="Behaviours\Attached\CommandBehaviorBinding.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Behaviours\Attached\CommandBehaviorCollection.cs" Link="Behaviours\Attached\CommandBehaviorCollection.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Behaviours\Attached\CommandExecutionStrategy.cs" Link="Behaviours\Attached\CommandExecutionStrategy.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Behaviours\Attached\EventHandlerGenerator.cs" Link="Behaviours\Attached\EventHandlerGenerator.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Behaviours\Attached\IExecutionStrategy.cs" Link="Behaviours\Attached\IExecutionStrategy.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Behaviours\Attached\SimpleCommand.cs" Link="Behaviours\Attached\SimpleCommand.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Behaviours\FilterBehaviours.cs" Link="Behaviours\FilterBehaviours.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Behaviours\FrameworkElementBehaviours.cs" Link="Behaviours\FrameworkElementBehaviours.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Behaviours\ItemsControlAttachedProperties.cs" Link="Behaviours\ItemsControlAttachedProperties.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Behaviours\Keyboard\KeyboardBehavioursKeyDown.cs" Link="Behaviours\Keyboard\KeyboardBehavioursKeyDown.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Behaviours\Keyboard\KeyboardBehavioursKeyUp.cs" Link="Behaviours\Keyboard\KeyboardBehavioursKeyUp.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Behaviours\MouseBehaviours.cs" Link="Behaviours\MouseBehaviours.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Behaviours\SelectorBehaviours.cs" Link="Behaviours\SelectorBehaviours.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Behaviours\WindowBehaviours.cs" Link="Behaviours\WindowBehaviours.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\BindingProxy.cs" Link="BindingProxy.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\BindingProxyControl.cs" Link="BindingProxyControl.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Commands\AppShutdownCommand.cs" Link="Commands\AppShutdownCommand.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Commands\AsyncCommand.cs" Link="Commands\AsyncCommand.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Commands\CloseWindowCommand.cs" Link="Commands\CloseWindowCommand.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Commands\DelegateCommand.cs" Link="Commands\DelegateCommand.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Commands\DownloadFileCommand.cs" Link="Commands\DownloadFileCommand.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Commands\EventBehaviourFactory.cs" Link="Commands\EventBehaviourFactory.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Commands\GenericDelegateCommand.cs" Link="Commands\GenericDelegateCommand.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Commands\MoveItemDownCommand.cs" Link="Commands\MoveItemDownCommand.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Commands\MoveItemUpCommand.cs" Link="Commands\MoveItemUpCommand.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Commands\MoveListItemCommand.cs" Link="Commands\MoveListItemCommand.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Commands\MultiCommand.cs" Link="Commands\MultiCommand.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Commands\NewCommand.cs" Link="Commands\NewCommand.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Commands\OpenFileCommand.cs" Link="Commands\OpenFileCommand.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Commands\RelayCommand.cs" Link="Commands\RelayCommand.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Commands\SaveAsCommand.cs" Link="Commands\SaveAsCommand.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Commands\SelectFolderCommand.cs" Link="Commands\SelectFolderCommand.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Commands\SetClipboardTextCommand.cs" Link="Commands\SetClipboardTextCommand.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Commands\ShowWindowCommand.cs" Link="Commands\ShowWindowCommand.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Converters\BooleanToVisibilityConverter.cs" Link="Converters\BooleanToVisibilityConverter.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Converters\DebuggingDataBindingConverter.cs" Link="Converters\DebuggingDataBindingConverter.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Converters\GridLengthConverter.cs" Link="Converters\GridLengthConverter.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Converters\IntegerAdditionConverter.cs" Link="Converters\IntegerAdditionConverter.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Converters\IntegerDividerConverter.cs" Link="Converters\IntegerDividerConverter.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Converters\IntegerToVisibilityConverter.cs" Link="Converters\IntegerToVisibilityConverter.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Converters\ReversedBooleanConverter.cs" Link="Converters\ReversedBooleanConverter.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Converters\SingleLineTextConverter.cs" Link="Converters\SingleLineTextConverter.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Converters\StringPathToTreeViewNodeConverter.cs" Link="Converters\StringPathToTreeViewNodeConverter.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\DebuggerTraceListener.cs" Link="DebuggerTraceListener.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\EventHandler Arguments\DownloadFileCommandMessageEventHandlerArgs.cs" Link="EventHandler Arguments\DownloadFileCommandMessageEventHandlerArgs.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\EventHandler Arguments\DownloadFileCommandProgressEventHandlerArgs.cs" Link="EventHandler Arguments\DownloadFileCommandProgressEventHandlerArgs.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\ExceptionArgs.cs" Link="ExceptionArgs.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\HelpersFunctions.cs" Link="HelpersFunctions.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Models\CheckedListItem.cs" Link="Models\CheckedListItem.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\PagingCollectionView.cs" Link="PagingCollectionView.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Behaviours\Attached\" />
+        <Folder Include="Behaviours\Keyboard\" />
+        <Folder Include="Commands\" />
+        <Folder Include="Converters\" />
+        <Folder Include="EventHandler Arguments\" />
+        <Folder Include="Models\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.2">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <Exec Command="powershell.exe -ExecutionPolicy Unrestricted -noprofile -nologo -noninteractive -Command .'P:\PowerShell\post-build.ps1' -vs_BuildEvent:Post -vs_OutDir:'$(OutDir)' -vs_ConfigurationName:'$(ConfigurationName)' -vs_ProjectName:'$(ProjectName)' -vs_TargetName:'$(TargetName)' -vs_TargetPath:'$(TargetPath)' -vs_ProjectPath:'$(ProjectPath)' -vs_ProjectFileName:'$(ProjectFileName)' -vs_TargetExt:'$(TargetExt)' -vs_TargetFileName:'$(TargetFileName)' -vs_DevEnvDir:'$(DevEnvDir)' -vs_TargetDir:'$(TargetDir)' -vs_ProjectDir:'$(ProjectDir)' -vs_SolutionFileName:'$(SolutionFileName)' -vs_SolutionPath:'$(SolutionPath)' -vs_SolutionDir:'$(SolutionDir)' -vs_SolutionName:'$(SolutionName)' -vs_PlatformName:'$(PlatformName)' -vs_ProjectExt:'$(ProjectExt)' -vs_SolutionExt:'$(SolutionExt)'" />
+    </Target>
+</Project>
