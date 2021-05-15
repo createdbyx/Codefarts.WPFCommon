@@ -1,4 +1,10 @@
-﻿namespace Codefarts.WPFCommon.Converters
+﻿// <copyright file="IntegerAdditionConverter.cs" company="Codefarts">
+// Copyright (c) Codefarts
+// contact@codefarts.com
+// http://www.codefarts.com
+// </copyright>
+
+namespace Codefarts.WPFCommon.Converters
 {
     using System;
     using System.Globalization;

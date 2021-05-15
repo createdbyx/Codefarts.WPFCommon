@@ -57,6 +57,9 @@
         <Compile Include="..\Codefarts.WPFCommon\Converters\IntegerAdditionConverter.cs" Link="Converters\IntegerAdditionConverter.cs" />
         <Compile Include="..\Codefarts.WPFCommon\Converters\IntegerDividerConverter.cs" Link="Converters\IntegerDividerConverter.cs" />
         <Compile Include="..\Codefarts.WPFCommon\Converters\IntegerToVisibilityConverter.cs" Link="Converters\IntegerToVisibilityConverter.cs" />
+        <Compile Include="..\Codefarts.WPFCommon\Converters\IntToStringConverter.cs">
+          <Link>Converters\IntToStringConverter.cs</Link>
+        </Compile>
         <Compile Include="..\Codefarts.WPFCommon\Converters\ReversedBooleanConverter.cs" Link="Converters\ReversedBooleanConverter.cs" />
         <Compile Include="..\Codefarts.WPFCommon\Converters\SingleLineTextConverter.cs" Link="Converters\SingleLineTextConverter.cs" />
         <Compile Include="..\Codefarts.WPFCommon\Converters\StringPathToTreeViewNodeConverter.cs" Link="Converters\StringPathToTreeViewNodeConverter.cs" />

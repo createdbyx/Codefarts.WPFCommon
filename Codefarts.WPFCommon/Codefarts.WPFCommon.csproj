@@ -94,6 +94,7 @@
     <Compile Include="Converters\IntegerAdditionConverter.cs" />
     <Compile Include="Converters\IntegerDividerConverter.cs" />
     <Compile Include="Converters\IntegerToVisibilityConverter.cs" />
+    <Compile Include="Converters\IntToStringConverter.cs" />
     <Compile Include="Converters\ReversedBooleanConverter.cs" />
     <Compile Include="Converters\SingleLineTextConverter.cs" />
     <Compile Include="Converters\StringPathToTreeViewNodeConverter.cs" />
