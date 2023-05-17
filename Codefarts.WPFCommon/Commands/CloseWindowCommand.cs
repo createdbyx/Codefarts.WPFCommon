@@ -7,13 +7,27 @@ namespace Codefarts.WPFCommon.Commands
     public class CloseWindowCommand : ICommand
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:System.Object"/> class.
+        /// Initializes a new instance of the <see cref="CloseWindowCommand"/> class.
         /// </summary>
         public CloseWindowCommand()
         {
         }
 
-        #region Implementation of ICommand
+        /// <summary>
+        /// Occurs when changes occur that affect whether or not the command should execute.
+        /// </summary>
+        public virtual event EventHandler CanExecuteChanged
+        {
+            add
+            {
+                CommandManager.RequerySuggested += value;
+            }
+
+            remove
+            {
+                CommandManager.RequerySuggested -= value;
+            }
+        }
 
         /// <summary>
         /// Defines the method that determines whether the command can execute in its current state.
@@ -39,23 +53,5 @@ namespace Codefarts.WPFCommon.Commands
                 window.Close();
             }
         }
-
-        /// <summary>
-        /// Occurs when changes occur that affect whether or not the command should execute.
-        /// </summary>
-        public virtual event EventHandler CanExecuteChanged
-        {
-            add
-            {
-                CommandManager.RequerySuggested += value;
-            }
-
-            remove
-            {
-                CommandManager.RequerySuggested -= value;
-            }
-        }
-
-        #endregion
     }
 }

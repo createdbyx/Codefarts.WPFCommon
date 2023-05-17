@@ -1,133 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5357C793-0EB7-4DD5-B0F7-296973B7E9ED}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Codefarts.WPFCommon</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
     <AssemblyName>Codefarts.WPFCommon</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <RootNamespace>Codefarts.WPFCommon</RootNamespace>
+    <LangVersion>default</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>Codefarts.WPFCommon</PackageId>
+    <Version>1.0.0.0</Version>
+    <Authors>Dean Lunz</Authors>
+    <Company>Codefarts.WPFCommon</Company>
+    <Product>Codefarts.WPFCommon</Product>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <TargetFrameworks>net5.0-windows;net6.0-windows;net7.0-windows</TargetFrameworks>
+    <Copyright>Codefarts</Copyright>
+    <IncludeSymbols>true</IncludeSymbols>
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Behaviours\Attached\ActionExecutionStrategy.cs" />
-    <Compile Include="Behaviours\Attached\BehaviorBinding.cs" />
-    <Compile Include="Behaviours\Attached\CommandBehavior.cs" />
-    <Compile Include="Behaviours\Attached\CommandBehaviorBinding.cs" />
-    <Compile Include="Behaviours\Attached\CommandBehaviorCollection.cs" />
-    <Compile Include="Behaviours\Attached\CommandExecutionStrategy.cs" />
-    <Compile Include="Behaviours\Attached\EventHandlerGenerator.cs" />
-    <Compile Include="Behaviours\Attached\IExecutionStrategy.cs" />
-    <Compile Include="Behaviours\Attached\SimpleCommand.cs" />
-    <Compile Include="Behaviours\FilterBehaviours.cs" />
-    <Compile Include="Behaviours\FrameworkElementBehaviours.cs" />
-    <Compile Include="Behaviours\ItemsControlAttachedProperties.cs" />
-    <Compile Include="Behaviours\Keyboard\KeyboardBehavioursKeyUp.cs" />
-    <Compile Include="Behaviours\Keyboard\KeyboardBehavioursKeyDown.cs" />
-    <Compile Include="Behaviours\SelectorBehaviours.cs" />
-    <Compile Include="BindingProxy.cs" />
-    <Compile Include="BindingProxyControl.cs" />
-    <Compile Include="Commands\AppShutdownCommand.cs" />
-    <Compile Include="Commands\AsyncCommand.cs" />
-    <Compile Include="Commands\CloseWindowCommand.cs" />
-    <Compile Include="Commands\DelegateCommand.cs" />
-    <Compile Include="Commands\DownloadFileCommand.cs" />
-    <Compile Include="Commands\EventBehaviourFactory.cs" />
-    <Compile Include="Commands\GenericDelegateCommand.cs" />
-    <Compile Include="Behaviours\MouseBehaviours.cs" />
-    <Compile Include="Commands\MoveItemDownCommand.cs" />
-    <Compile Include="Commands\MoveItemUpCommand.cs" />
-    <Compile Include="Commands\MoveListItemCommand.cs" />
-    <Compile Include="Commands\MultiCommand.cs" />
-    <Compile Include="Commands\NewCommand.cs" />
-    <Compile Include="Commands\OpenFileCommand.cs" />
-    <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="Commands\SaveAsCommand.cs" />
-    <Compile Include="Commands\SelectFolderCommand.cs" />
-    <Compile Include="Commands\SetClipboardTextCommand.cs" />
-    <Compile Include="Commands\ShowWindowCommand.cs" />
-    <Compile Include="Behaviours\WindowBehaviours.cs" />
-    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Converters\DebuggingDataBindingConverter.cs" />
-    <Compile Include="Converters\GridLengthConverter.cs" />
-    <Compile Include="Converters\IntegerAdditionConverter.cs" />
-    <Compile Include="Converters\IntegerDividerConverter.cs" />
-    <Compile Include="Converters\IntegerToVisibilityConverter.cs" />
-    <Compile Include="Converters\IntToStringConverter.cs" />
-    <Compile Include="Converters\ReversedBooleanConverter.cs" />
-    <Compile Include="Converters\SingleLineTextConverter.cs" />
-    <Compile Include="Converters\StringPathToTreeViewNodeConverter.cs" />
-    <Compile Include="DebuggerTraceListener.cs" />
-    <Compile Include="EventHandler Arguments\DownloadFileCommandMessageEventHandlerArgs.cs" />
-    <Compile Include="EventHandler Arguments\DownloadFileCommandProgressEventHandlerArgs.cs" />
-    <Compile Include="ExceptionArgs.cs" />
-    <Compile Include="HelpersFunctions.cs" />
-    <Compile Include="Models\CheckedListItem.cs" />
-    <Compile Include="PagingCollectionView.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <AdditionalFiles Include="..\stylecop.json">
-      <Link>stylecop.json</Link>
-    </AdditionalFiles>
-    <None Include="Key.snk" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\..\Codefarts.StockMarket\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\..\Codefarts.StockMarket\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>powershell.exe -ExecutionPolicy Unrestricted -noprofile -nologo -noninteractive -Command .'P:\PowerShell\post-build.ps1' -vs_BuildEvent:Post -vs_OutDir:'$(OutDir)' -vs_ConfigurationName:'$(ConfigurationName)' -vs_ProjectName:'$(ProjectName)' -vs_TargetName:'$(TargetName)' -vs_TargetPath:'$(TargetPath)' -vs_ProjectPath:'$(ProjectPath)' -vs_ProjectFileName:'$(ProjectFileName)' -vs_TargetExt:'$(TargetExt)' -vs_TargetFileName:'$(TargetFileName)' -vs_DevEnvDir:'$(DevEnvDir)' -vs_TargetDir:'$(TargetDir)' -vs_ProjectDir:'$(ProjectDir)' -vs_SolutionFileName:'$(SolutionFileName)' -vs_SolutionPath:'$(SolutionPath)' -vs_SolutionDir:'$(SolutionDir)' -vs_SolutionName:'$(SolutionName)' -vs_PlatformName:'$(PlatformName)' -vs_ProjectExt:'$(ProjectExt)' -vs_SolutionExt:'$(SolutionExt)'</PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="buildhelper &quot;-b:$(ProjectDir)$(ConfigurationName)-PostBuild.xml&quot; &quot;-p:$(ProjectPath)&quot; &quot;-tf:$(TargetFramework)&quot;" />
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

@@ -7,6 +7,22 @@ namespace Codefarts.WPFCommon.Commands
     public class AppShutdownCommand : ICommand
     {
         /// <summary>
+        /// Occurs when changes occur that affect whether or not the command should execute.
+        /// </summary>
+        public virtual event EventHandler CanExecuteChanged
+        {
+            add
+            {
+                CommandManager.RequerySuggested += value;
+            }
+
+            remove
+            {
+                CommandManager.RequerySuggested -= value;
+            }
+        }
+
+        /// <summary>
         /// Defines the method that determines whether the command can execute in its current state.
         /// </summary>
         /// <returns>
@@ -25,22 +41,6 @@ namespace Codefarts.WPFCommon.Commands
         public virtual void Execute(object parameter)
         {
             Application.Current.Shutdown();
-        }
-
-        /// <summary>
-        /// Occurs when changes occur that affect whether or not the command should execute.
-        /// </summary>
-        public virtual event EventHandler CanExecuteChanged
-        {
-            add
-            {
-                CommandManager.RequerySuggested += value;
-            }
-
-            remove
-            {
-                CommandManager.RequerySuggested -= value;
-            }
         }
     }
 }

@@ -13,7 +13,6 @@ namespace Codefarts.WPFCommon.Commands
 #else
     using System.Windows.Forms;
 #endif
-    using System.Windows.Media;
 
     public class SaveAsCommand : DelegateCommand
     {

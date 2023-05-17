@@ -5,8 +5,6 @@
 
     public class FrameworkElementBehaviours
     {
-        #region Loaded
-
         public static readonly DependencyProperty LoadedCommandProperty =
             DependencyProperty.RegisterAttached("Loaded", typeof(ICommand), typeof(FrameworkElementBehaviours), new FrameworkPropertyMetadata(LoadedCommandChanged));
 
@@ -47,7 +45,5 @@
         {
             return (ICommand)element.GetValue(LoadedCommandProperty);
         }
-
-        #endregion
     }
 }

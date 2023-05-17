@@ -6,8 +6,6 @@
 
     public class WindowBehaviours
     {
-        #region Closing
-
         public static readonly DependencyProperty ClosingCommandProperty =
           DependencyProperty.RegisterAttached("Closing", typeof(ICommand), typeof(WindowBehaviours), new FrameworkPropertyMetadata(ClosingCommandChanged));
 
@@ -65,10 +63,6 @@
             return (ICommand)window.GetValue(ClosingCommandProperty);
         }
 
-        #endregion
-
-        #region CancelClosing
-
         public static ICommand GetCancelClosing(DependencyObject obj)
         {
             return (ICommand)obj.GetValue(CancelClosingProperty);
@@ -82,9 +76,6 @@
         public static readonly DependencyProperty CancelClosingProperty =
             DependencyProperty.RegisterAttached("CancelClosing", typeof(ICommand), typeof(WindowBehaviours));
 
-        #endregion
-
-        #region Closed
         public static ICommand GetClosed(DependencyObject obj)
         {
             return (ICommand)obj.GetValue(ClosedProperty);
@@ -129,6 +120,5 @@
                 closed.Execute(e);
             }
         }
-        #endregion
     }
 }

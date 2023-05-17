@@ -138,8 +138,6 @@ namespace Codefarts.WPFCommon.Commands
             return memberExpression.Member;
         }
 
-        #region Implementation of ICommand
-
         public Func<T, bool> CanExecuteCallback
         {
             get
@@ -235,8 +233,6 @@ namespace Codefarts.WPFCommon.Commands
             }
         }
 
-        #endregion
-
         protected virtual void OnInitialize()
         {
             var handler = this.Initialize;
@@ -244,6 +240,11 @@ namespace Codefarts.WPFCommon.Commands
             {
                 handler.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        public static GenericDelegateCommand<T> Execute(Action<T> callback)
+        {
+            return new GenericDelegateCommand<T>(callback);
         }
     }
 }

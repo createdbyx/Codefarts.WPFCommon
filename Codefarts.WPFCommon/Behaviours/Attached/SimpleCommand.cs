@@ -24,8 +24,6 @@ namespace AttachedCommandBehavior
         /// </summary>
         public Action<object> ExecuteDelegate { get; set; }
 
-        #region ICommand Members
-
         /// <summary>
         /// Checks if the command Execute method can run
         /// </summary>
@@ -53,7 +51,5 @@ namespace AttachedCommandBehavior
             if (ExecuteDelegate != null)
                 ExecuteDelegate(parameter);
         }
-
-        #endregion
     }
 }

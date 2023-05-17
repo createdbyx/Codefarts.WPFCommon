@@ -1,21 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections.ObjectModel;
 using System.Windows;
-using System.ComponentModel;
-using System.Windows.Markup;
-using System.Diagnostics;
-using System.Collections;
 using System.Collections.Specialized;
 
 namespace AttachedCommandBehavior
 {
     public class CommandBehaviorCollection
     {
-        #region Behaviors
-
         /// <summary>
         /// Behaviors Read-Only Dependency Property
         /// As you can see the Attached readonly property has a name registered different (BehaviorsInternal) than the property name, this is a tricks os that we can construct the collection as we want
@@ -99,9 +89,6 @@ namespace AttachedCommandBehavior
                     break;
             }
         }
-
-        #endregion
-
     }
 
     /// <summary>
